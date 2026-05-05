@@ -1,0 +1,74 @@
+vite.config.ts
+  315a4b2c5d45e6ed 2,8
+src/components/ElevationProfile.tsx
+  315a4b2c5d45e6ed 1-54
+src/index.css
+  315a4b2c5d45e6ed 1-59
+src/components/HrZoneBar.tsx
+  315a4b2c5d45e6ed 1,3-4,6-45
+src/components/Tag.tsx
+  315a4b2c5d45e6ed 1-43
+src/components/ActivityStrip.tsx
+  315a4b2c5d45e6ed 1-50
+src/server.ts
+  315a4b2c5d45e6ed 4,8,12-47,49-50,52-53,55-83,85-87,89-90
+src/components/StatTile.tsx
+  315a4b2c5d45e6ed 1-4,6-8,11-13,15-20
+src/lib/format.ts
+  315a4b2c5d45e6ed 1-60
+src/views/analyze-activity.tsx
+  315a4b2c5d45e6ed 1-158
+src/views/get-recap.tsx
+  315a4b2c5d45e6ed 1-181
+src/components/SplitsChart.tsx
+  315a4b2c5d45e6ed 1-39,41-60
+  h_b7c268b0e33ac7 40
+src/components/ActivityRow.tsx
+  315a4b2c5d45e6ed 1-46
+src/components/RoutePreview.tsx
+  315a4b2c5d45e6ed 1-120
+src/lib/mock.ts
+  315a4b2c5d45e6ed 1-171
+src/lib/use-host-theme.ts
+  315a4b2c5d45e6ed 1-14
+src/lib/types.ts
+  315a4b2c5d45e6ed 1-96
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "995f7dd1c71ae79b6b33d578f8c7f08a030cc5b3",
+  "prompts": {
+    "315a4b2c5d45e6ed": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "12d1d3f6-0246-428e-9de1-6106600943a1",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Marek Elmayan",
+      "messages": [],
+      "total_additions": 1107,
+      "total_deletions": 1004,
+      "accepted_lines": 1257,
+      "overriden_lines": 1
+    },
+    "a1ad8a3dfb5ba4ef": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019df72f-1de8-7963-8730-f038834bcd17",
+        "model": "gpt-5.5"
+      },
+      "human_author": "Marek Elmayan",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    }
+  },
+  "humans": {
+    "h_b7c268b0e33ac7": {
+      "author": "Marek Elmayan"
+    }
+  }
+}
