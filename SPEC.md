@@ -89,3 +89,57 @@ Conversational, no end state. User can tap a run in Recap to trigger Deep-dive, 
 - **Sport filter:** runs only (`type=Run`); other sports hidden in v1.
 - **Hosting:** Alpic (per skill `deploy.md`).
 - **Scope explicitly excluded v1:** rides, swims, hikes; social (kudos/comments); activity upload/edit; route planning; segment analysis; training plans; compare/trend view.
+
+## UX Flows
+
+Recap a period:
+1. Recap runs over a period (week / month / last N runs)
+
+Analyze a run:
+1. Analyze a single run (entry: direct query, or tap a run from a Recap view)
+
+## Tools and Views
+
+Two views, no standalone tools. OAuth is handled by the Skybridge framework, not exposed to the LLM. Streams are downsampled and pre-computed server-side (splits, elevation profile, notable moments) so the LLM never sees raw arrays.
+
+### View: `get_recap`
+
+- **Input:**
+  - `period?: "last_7_days" | "last_30_days" | "this_week" | "this_month" | "last_n_runs"` (default `last_7_days`)
+  - `count?: number` (used when `period === "last_n_runs"`)
+  - `before?: string` (ISO date)
+  - `after?: string` (ISO date)
+- **Output:**
+  - `athlete: { units: "metric" | "imperial" }`
+  - `period: { label, start, end }`
+  - `totals: { runs, distance, movingTime, elevationGain }`
+  - `comparison: { previous: { distance, movingTime, elevationGain }, delta: { distance, movingTime } }`
+  - `activities: Array<{ id, date, name, distance, movingTime, avgPace, elevationGain, tag }>`
+  - `hrZones: Array<{ zone, seconds, percent }>` — aggregated across the period
+  - `highlight: string` (e.g. "longest run since August")
+- **Behavior:** renders the recap card. Tapping an activity in the view triggers `analyze_activity` as a new turn (cross-view trigger). No lazy-load — list rows are fully populated from this output.
+
+### View: `analyze_activity`
+
+- **Input:**
+  - `activityId?: string` (preferred)
+  - `latest?: boolean` (convenience for "analyze my last run")
+- **Output:**
+  - `athlete: { units }`
+  - `activity: { id, name, date, type, distance, movingTime, elapsedTime, avgPace, avgHr, maxHr, elevationGain, calories, polyline, startLatLng }`
+  - `splits: Array<{ km, pace, hr, elevationDelta }>`
+  - `hrZones: Array<{ zone, seconds, percent }>` (degrades gracefully if Strava `/zones` is unavailable)
+  - `elevationProfile: Array<{ distance, elevation }>` (downsampled to ~50–100 points)
+  - `notableMoments: Array<{ kind: "fastest_km" | "hr_spike" | "biggest_climb", distance, label }>`
+  - `tag: string` ("tempo" | "easy" | "long" | "race" | etc.)
+- **Behavior:** renders the activity card. Map decoded from the polyline client-side via MapLibre.
+
+### Activity-ID resolution
+
+Fuzzy references ("my Tuesday run", "the long one") are resolved by the LLM, not the tool: it calls `get_recap` with an appropriate window, picks the matching activity's `id` from the output, then calls `analyze_activity({ activityId })`. Keeps the tool surface narrow.
+
+### Caching
+
+- `get_recap` cached per `(athlete, period)` for ~5 minutes.
+- `analyze_activity` cached per `activityId` long-term (activities are immutable post-upload).
+- Mitigates Strava rate limits (100 req / 15 min per app).
