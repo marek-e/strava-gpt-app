@@ -1,0 +1,30 @@
+src/server.ts
+  s_b2795fba17f485::t_ea211c83fab5b3 6-7,56-57,86-88
+src/lib/analyze.ts
+  s_b2795fba17f485::t_2b7706bfd58368 1-238
+src/lib/recap.ts
+  s_b2795fba17f485::t_90878001e6b255 1-288
+src/lib/derive.ts
+  s_b2795fba17f485::t_53a4eee49bcb78 1-8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.1",
+  "base_commit_sha": "4ded82dc88674f18889d863309cde16ead34cf6a",
+  "prompts": {},
+  "humans": {
+    "h_34454149dac528": {
+      "author": "Marek Elmayan <melmayan.dev@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_b2795fba17f485": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "c50c48cb-ef74-4342-b80b-3d2e2686e9f0",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Marek Elmayan <melmayan.dev@gmail.com>"
+    }
+  }
+}
