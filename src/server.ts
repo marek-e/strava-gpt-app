@@ -1,7 +1,13 @@
+import { existsSync } from "node:fs";
+
 import { McpServer } from "skybridge/server";
 import { z } from "zod";
 
 import { getMockActivity, getMockRecap } from "./lib/mock.js";
+
+if (existsSync(".env")) {
+  process.loadEnvFile(".env");
+}
 
 const server = new McpServer(
   {

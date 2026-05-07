@@ -9,6 +9,28 @@ A minimal TypeScript template for building MCP and ChatGPT Apps with the [Skybri
 - Node.js 24+
 - HTTP tunnel such as [Alpic tunnel](https://docs.alpic.ai/cli/tunnel) if you want to test with remote MCP hosts like ChatGPT or Claude.ai.
 
+### Strava setup (one-time)
+
+This is a single-athlete v1 — the server holds **your** Strava refresh token and exposes your data to ChatGPT through the MCP tools.
+
+1. Create a Strava API app at [https://www.strava.com/settings/api](https://www.strava.com/settings/api).  
+   Set **Authorization Callback Domain** to `localhost`.
+2. Copy `.env.example` → `.env` and fill in `STRAVA_CLIENT_ID` and `STRAVA_CLIENT_SECRET`:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+3. Run the bootstrap script — it opens a browser, you grant access, and it prints your refresh token:
+
+   ```bash
+   pnpm bootstrap:strava
+   ```
+
+4. Paste the printed `STRAVA_REFRESH_TOKEN` into `.env`.
+
+When you eventually deploy (Alpic), set the same three vars as production secrets.
+
 ### Local Development
 
 #### 1. Install
