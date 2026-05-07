@@ -1,0 +1,14 @@
+.alpic/project.json
+  ai_agent 1-8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.1",
+  "base_commit_sha": "b0c22679defe280da0cd57bfa7be96b9481813e0",
+  "prompts": {},
+  "humans": {
+    "h_34454149dac528": {
+      "author": "Marek Elmayan <melmayan.dev@gmail.com>"
+    }
+  }
+}
