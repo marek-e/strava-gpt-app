@@ -3,7 +3,20 @@ import { existsSync } from "node:fs";
 import { McpServer } from "skybridge/server";
 import { z } from "zod";
 
-import { getMockActivity, getMockRecap } from "./lib/mock.js";
+import {
+  buildAnalyzeActivity,
+  buildRecap,
+  isRun,
+  resolvePeriod,
+} from "./lib/derive.js";
+import {
+  getActivityDetail,
+  getActivityStreams,
+  getActivityZones,
+  getAthlete,
+  listActivitiesByWindow,
+  listRecentRuns,
+} from "./lib/strava-api.js";
 
 if (existsSync(".env")) {
   process.loadEnvFile(".env");
@@ -20,7 +33,7 @@ const server = new McpServer(
     {
       name: "get-recap",
       description:
-        "Recap the user's recent runs over a period (defaults to last 7 days). Returns totals, per-run summaries, HR zone distribution, period-over-period comparison and a notable highlight.",
+        "Recap the user's recent runs over a period (defaults to last 7 days). Returns totals, per-run summaries, period-over-period comparison and a notable highlight.",
       inputSchema: {
         period: z
           .enum([
@@ -52,12 +65,47 @@ const server = new McpServer(
         description: "Strava recap card",
       },
     },
-    async () => {
-      const recap = getMockRecap();
-      return {
-        content: [],
-        structuredContent: recap,
-      };
+    async ({ period, count, before, after }) => {
+      const resolved = resolvePeriod(period, count, before, after);
+      const athlete = await getAthlete();
+
+      if (resolved.kind === "window") {
+        const [current, previous] = await Promise.all([
+          listActivitiesByWindow(resolved.after, resolved.before),
+          listActivitiesByWindow(resolved.prevAfter, resolved.prevBefore),
+        ]);
+        const recap = buildRecap({
+          athlete,
+          label: resolved.label,
+          start: new Date(resolved.after * 1000),
+          end: new Date(resolved.before * 1000),
+          current: current.filter(isRun),
+          previous: previous.filter(isRun),
+        });
+        return { content: [], structuredContent: recap };
+      }
+
+      // last_n_runs: paginate enough to cover current + previous N runs.
+      const runs = await listRecentRuns(resolved.count * 2);
+      const current = runs.slice(0, resolved.count);
+      const previous = runs.slice(resolved.count, resolved.count * 2);
+
+      const start =
+        current.length > 0
+          ? new Date(current[current.length - 1].start_date)
+          : new Date();
+      const end =
+        current.length > 0 ? new Date(current[0].start_date) : new Date();
+
+      const recap = buildRecap({
+        athlete,
+        label: resolved.label,
+        start,
+        end,
+        current,
+        previous,
+      });
+      return { content: [], structuredContent: recap };
     },
   )
   .registerTool(
@@ -86,7 +134,43 @@ const server = new McpServer(
       },
     },
     async ({ activityId, latest }) => {
-      const { output, meta } = getMockActivity(activityId, latest);
+      let resolvedId = activityId;
+      if (!resolvedId) {
+        if (!latest) {
+          throw new Error(
+            "Provide an `activityId` or set `latest: true` to analyze the most recent run.",
+          );
+        }
+        const recent = await listRecentRuns(1);
+        if (recent.length === 0) {
+          throw new Error("No recent runs found on this Strava account.");
+        }
+        resolvedId = String(recent[0].id);
+      }
+
+      const [athlete, detail] = await Promise.all([
+        getAthlete(),
+        getActivityDetail(resolvedId),
+      ]);
+
+      if (detail.type !== "Run") {
+        throw new Error(
+          `Activity ${resolvedId} is a ${detail.type}, not a Run. v1 supports runs only.`,
+        );
+      }
+
+      const [streams, zones] = await Promise.all([
+        getActivityStreams(resolvedId),
+        getActivityZones(resolvedId),
+      ]);
+
+      const { output, meta } = buildAnalyzeActivity({
+        athlete,
+        detail,
+        streams,
+        zones,
+      });
+
       return {
         content: [],
         structuredContent: output,

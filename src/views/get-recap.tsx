@@ -110,9 +110,11 @@ export default function GetRecap() {
             </div>
           </Section>
 
-          <Section title="Heart-rate zones">
-            <HrZoneBar zones={data.hrZones} />
-          </Section>
+          {data.hrZones.length ? (
+            <Section title="Heart-rate zones">
+              <HrZoneBar zones={data.hrZones} />
+            </Section>
+          ) : null}
         </>
       ) : null}
     </Card>
