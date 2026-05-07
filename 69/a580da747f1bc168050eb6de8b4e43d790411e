@@ -1,0 +1,29 @@
+src/lib/analyze.ts
+  s_b2795fba17f485::t_d826a8e2621779 145
+  s_b2795fba17f485::t_0b254e4d8d09ef 120-127
+src/components/SplitsChart.tsx
+  s_b2795fba17f485::t_e4c303c8b51a21 41-44
+  s_b2795fba17f485::t_b7fd9760a5f8b7 4-11,25-33
+  s_b2795fba17f485::t_3354d1009857a1 72-91
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.1",
+  "base_commit_sha": "69a580da747f1bc168050eb6de8b4e43d790411e",
+  "prompts": {},
+  "humans": {
+    "h_34454149dac528": {
+      "author": "Marek Elmayan <melmayan.dev@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_b2795fba17f485": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "c50c48cb-ef74-4342-b80b-3d2e2686e9f0",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Marek Elmayan <melmayan.dev@gmail.com>"
+    }
+  }
+}
