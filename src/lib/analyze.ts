@@ -117,8 +117,14 @@ function buildAnalyzeActivity({
       movingTime: detail.moving_time,
       elapsedTime: detail.elapsed_time,
       avgPace: paceFromAvgSpeed(detail.average_speed),
-      avgHr: detail.average_heartrate ?? null,
-      maxHr: detail.max_heartrate ?? null,
+      avgHr:
+        detail.average_heartrate != null
+          ? Math.round(detail.average_heartrate)
+          : null,
+      maxHr:
+        detail.max_heartrate != null
+          ? Math.round(detail.max_heartrate)
+          : null,
       elevationGain: detail.total_elevation_gain,
       calories: detail.calories ?? null,
       startLatLng: detail.start_latlng ?? [0, 0],
@@ -136,7 +142,7 @@ function buildSplits(splits: StravaSplit[]): Split[] {
   return splits.map((s) => ({
     km: s.split,
     pace: paceFromAvgSpeed(s.average_speed),
-    hr: s.average_heartrate ?? null,
+    hr: s.average_heartrate != null ? Math.round(s.average_heartrate) : null,
     elevationDelta: Math.round(s.elevation_difference ?? 0),
   }));
 }
