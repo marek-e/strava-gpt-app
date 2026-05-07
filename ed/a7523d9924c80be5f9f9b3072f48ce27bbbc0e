@@ -1,0 +1,24 @@
+src/lib/strava-api.ts
+  s_b2795fba17f485::t_bc533ba5eaa039 97-100,107-109,120,125-131
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.1",
+  "base_commit_sha": "eda7523d9924c80be5f9f9b3072f48ce27bbbc0e",
+  "prompts": {},
+  "humans": {
+    "h_34454149dac528": {
+      "author": "Marek Elmayan <melmayan.dev@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_b2795fba17f485": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "c50c48cb-ef74-4342-b80b-3d2e2686e9f0",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Marek Elmayan <melmayan.dev@gmail.com>"
+    }
+  }
+}
