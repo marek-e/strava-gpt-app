@@ -1,0 +1,24 @@
+.agents/skills/chatgpt-app-builder/references/csp.md
+  s_a98e7cb79bb57b::t_40757732ca0ada 3,8,11,14,16,18-25,28,30,34-36
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.1",
+  "base_commit_sha": "52995c3d0df5c28f2641eb9caf3fdd278c95731f",
+  "prompts": {},
+  "humans": {
+    "h_34454149dac528": {
+      "author": "Marek Elmayan <melmayan.dev@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_a98e7cb79bb57b": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "b313e2a1-c72d-4dd4-b609-cdbdf5f99aae",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Marek Elmayan <melmayan.dev@gmail.com>"
+    }
+  }
+}
