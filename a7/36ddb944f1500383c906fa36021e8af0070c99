@@ -1,0 +1,42 @@
+README.md
+  s_b2795fba17f485::t_a8c6e491583358 12-17,24-33
+  s_b2795fba17f485::t_0cfceb0a321d44 18-23
+src/server.ts
+  s_b2795fba17f485::t_8591893a372211 1-2,8-10
+src/lib/strava-client.ts
+  s_b2795fba17f485::t_ea8ab7764331c3 1-98
+scripts/bootstrap-strava-token.ts
+  s_b2795fba17f485::t_08c3f254834421 1-123
+src/lib/strava-auth.ts
+  s_b2795fba17f485::t_7d7b68423df12e 1-89
+package.json
+  s_b2795fba17f485::t_7a8381b08b0588 12
+  s_b2795fba17f485::t_8d6b553509aec0 13
+src/lib/env.ts
+  s_b2795fba17f485::t_f83bec10cc35cf 1-26
+.env.example
+  s_b2795fba17f485::t_387381ff184fb3 1-9
+.gitignore
+  h_34454149dac528 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.1",
+  "base_commit_sha": "a736ddb944f1500383c906fa36021e8af0070c99",
+  "prompts": {},
+  "humans": {
+    "h_34454149dac528": {
+      "author": "Marek Elmayan <melmayan.dev@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_b2795fba17f485": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "c50c48cb-ef74-4342-b80b-3d2e2686e9f0",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Marek Elmayan <melmayan.dev@gmail.com>"
+    }
+  }
+}
