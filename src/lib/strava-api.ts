@@ -94,16 +94,19 @@ export async function getActivityStreams(
         { query: { keys: "distance,altitude,heartrate", key_by_type: true } },
       );
     } catch (err) {
-      // Treadmill / GPS-off / pre-stream activities → no stream data.
-      if (err instanceof StravaApiError && err.status === 404) return {};
+      // 404: treadmill / GPS-off / pre-stream activity, no stream data.
+      // 402: Strava paywalled streams for free accounts in 2024.
+      // 401: missing scope. All three → empty profile, view degrades.
+      if (isUnavailable(err)) return {};
       throw err;
     }
   });
 }
 
 /**
- * Activity HR zones. Returns `[]` (not an error) if Strava can't compute them
- * (no HR data, free account limitation, etc.) so callers can degrade silently.
+ * Activity HR zones. Returns `[]` when Strava can't or won't compute them:
+ * no HR data on the activity, missing scope, or free-account paywall (402).
+ * Callers degrade silently via the empty array.
  */
 export async function getActivityZones(
   activityId: string,
@@ -114,13 +117,16 @@ export async function getActivityZones(
         `/activities/${activityId}/zones`,
       );
     } catch (err) {
-      if (
-        err instanceof StravaApiError &&
-        (err.status === 404 || err.status === 401)
-      ) {
-        return [];
-      }
+      if (isUnavailable(err)) return [];
       throw err;
     }
   });
+}
+
+/** True when Strava signals the resource isn't available to this account. */
+function isUnavailable(err: unknown): boolean {
+  return (
+    err instanceof StravaApiError &&
+    (err.status === 401 || err.status === 402 || err.status === 404)
+  );
 }
