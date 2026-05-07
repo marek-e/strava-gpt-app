@@ -81,6 +81,15 @@ const server = new McpServer(
       view: {
         component: "analyze-activity",
         description: "Strava activity deep-dive",
+        csp: {
+          // CARTO Basemaps raster tiles (a/b/c/d subdomains) for the route map.
+          resourceDomains: [
+            "https://a.basemaps.cartocdn.com",
+            "https://b.basemaps.cartocdn.com",
+            "https://c.basemaps.cartocdn.com",
+            "https://d.basemaps.cartocdn.com",
+          ],
+        },
       },
     },
     async (input) => {

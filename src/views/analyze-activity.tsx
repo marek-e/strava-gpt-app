@@ -49,7 +49,11 @@ export default function AnalyzeActivity() {
 
   return (
     <Card expanded={isExpanded}>
-      <RoutePreview polyline={meta.polyline} height={isExpanded ? 260 : 160} />
+      <RoutePreview
+        polyline={meta.polyline}
+        height={isExpanded ? 320 : 160}
+        interactive={isExpanded}
+      />
 
       <div className={isExpanded ? "px-6 flex flex-col gap-6" : "px-[18px] flex flex-col gap-4"}>
         <header className="flex items-start justify-between gap-3 mt-3">

@@ -84,7 +84,7 @@ Conversational, no end state. User can tap a run in Recap to trigger Deep-dive, 
   - `GET /activities/{id}/zones` — time-in-HR-zones
 - **Rate limits:** 100 req / 15 min, 1,000 / day per app; 200 / 15 min, 2,000 / day per athlete. Implication: cache aggressively, only fetch streams on deep-dive.
 - **Auth:** Strava OAuth wired through Skybridge's auth flow (see chatgpt-app-builder `oauth.md`). v1 single-athlete (developer); v2 will open to public, which requires Strava app review for >1 athlete.
-- **Maps:** MapLibre GL + free OSM tiles (zero cost for v1). CSP must allow OSM tile domain.
+- **Maps:** MapLibre GL + [CARTO Basemaps](https://carto.com/basemaps) raster tiles (`light_all` / `dark_all`, theme-matched, zero cost, no API key). OSM Foundation's own tile servers are off-limits per their tile-usage policy, so we render OSM-derived data through CARTO's free CDN. CSP whitelists `*.basemaps.cartocdn.com` on the analyze-activity view.
 - **Units:** auto from Strava athlete profile (`measurement_preference`).
 - **Sport filter:** runs only (`type=Run`); other sports hidden in v1.
 - **Hosting:** Alpic (per skill `deploy.md`).
