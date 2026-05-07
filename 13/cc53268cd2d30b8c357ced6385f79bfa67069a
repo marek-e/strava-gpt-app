@@ -1,0 +1,33 @@
+src/server.ts
+  s_a98e7cb79bb57b::t_8db4b615433eac 92
+  s_a98e7cb79bb57b::t_8bddd199ccc1ac 84-91
+SPEC.md
+  s_a98e7cb79bb57b::t_a060e5ac5db050 87
+package.json
+  s_a98e7cb79bb57b::t_6f310bb1710fce 18
+src/views/analyze-activity.tsx
+  s_a98e7cb79bb57b::t_10d2b702fd8fc2 52-56
+src/components/RoutePreview.tsx
+  s_a98e7cb79bb57b::t_b21060e30c76b3 1-14,18-23,25-62,74-78,82-193,195,224
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.1",
+  "base_commit_sha": "13cc53268cd2d30b8c357ced6385f79bfa67069a",
+  "prompts": {},
+  "humans": {
+    "h_34454149dac528": {
+      "author": "Marek Elmayan <melmayan.dev@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_a98e7cb79bb57b": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "b313e2a1-c72d-4dd4-b609-cdbdf5f99aae",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Marek Elmayan <melmayan.dev@gmail.com>"
+    }
+  }
+}
